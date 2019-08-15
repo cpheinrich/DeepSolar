@@ -35,7 +35,7 @@ def main():
 
     # build the tensorflow graph.
     with tf.Graph().as_default() as g:
-        input_shape = [IMAGE_SIZE, IMAGE_SIZE, 3]
+        input_shape = [None, IMAGE_SIZE, IMAGE_SIZE, 3]
         final_shape = [1, IMAGE_SIZE, IMAGE_SIZE, 3]
         img_placeholder = tf.placeholder(
             tf.uint8, shape=input_shape)
@@ -63,7 +63,7 @@ def main():
                 print('Checkpoint loaded')
             else:
                 print('No checkpoint file found')
-            save_dir = './saved_models5'
+            save_dir = './saved_models'
             print(
                 'Saving model for deployment in directory {}'.format(save_dir))
             tf.saved_model.simple_save(sess,
