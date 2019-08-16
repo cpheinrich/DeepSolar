@@ -36,7 +36,7 @@ def main():
     # build the tensorflow graph.
     with tf.Graph().as_default() as g:
         input_shape = [None, IMAGE_SIZE, IMAGE_SIZE, 3]
-        final_shape = [1, IMAGE_SIZE, IMAGE_SIZE, 3]
+        final_shape = [-1, IMAGE_SIZE, IMAGE_SIZE, 3]
         img_placeholder = tf.placeholder(
             tf.uint8, shape=input_shape)
         print(img_placeholder.shape)
