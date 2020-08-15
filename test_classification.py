@@ -8,6 +8,7 @@
 from inception.slim import slim
 from inception import inception_model as inception
 from collections import deque
+import argparse
 import skimage.transform
 import skimage.io
 import skimage
@@ -32,7 +33,7 @@ tf.app.flags.DEFINE_string('ckpt_dir', checkpoint_bucket,
 BATCH_SIZE = 1
 IMAGE_SIZE = 299
 NUM_CLASSES = 2
-SAVE_MODEL = True
+SAVE_MODEL = False
 
 
 def load_image(path):
@@ -49,16 +50,22 @@ def load_image(path):
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
+    print('l', l, 'n', n)
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
 
-def main():
-
-    global BATCH_SIZE
+def main(img_dir):
+    filelist = []
+    for file in os.listdir(img_dir):
+        name, ext = os.path.splitext(file)
+        if ext == '.png' or ext == '.jpg':
+            filelist.append(os.path.join(img_dir, file))
 
     # List of all images to process
-    filelist = [file.strip() for file in sys.stdin]
+    #filelist = [file.strip() for file in sys.stdin]
+    print("Running inference on images", filelist)
+    global BATCH_SIZE
 
     if len(filelist) < BATCH_SIZE:
         BATCH_SIZE = len(filelist)
@@ -119,4 +126,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('img_dir', help="path to directory of images")
+    args = parser.parse_args()
+    main(args.img_dir)

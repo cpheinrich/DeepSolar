@@ -8,10 +8,12 @@ CNN model was developed with [TensorFlow](https://github.com/tensorflow). `slim`
 Clone repo, pip install requirements.txt and then run
 
 ```
-find . -name *.jpg | python test_classification.py
+python test_classification.py <img_dir>
 ```
 
-This will run inference on all jpg images in the directory and print out the probability that they have solar panels installed. There is no need to download the trained model -- this is automatically downloaded from a storage bucket when you run the above script.
+This will run inference on all images in `<img_dir>`. For example, run `python test_classification.py ./imgs` to run on the sample images in this repository.
+
+When downloading images from google maps api note that their zoom level must be set to 22 otherwise inference will not work properly. This is likely because the models were originally trained on images of this zoom level
 
 
 ### More:
