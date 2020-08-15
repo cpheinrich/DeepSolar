@@ -67,7 +67,6 @@ def main(img_dir):
             filelist.append(os.path.join(img_dir, file))
 
     # List of all images to process
-    #filelist = [file.strip() for file in sys.stdin]
     print("Running inference on images", filelist)
     global BATCH_SIZE
 
